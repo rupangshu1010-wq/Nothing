@@ -14,32 +14,11 @@ jobs:
       matrix:
         include:
           - idf_ver: release-v5.5
-            target: esp32
-            preview: ""
-          - idf_ver: release-v5.5
-            target: esp32s2
-            preview: ""
-          - idf_ver: release-v5.5
             target: esp32s3
-            preview: ""
-          - idf_ver: release-v5.5
-            target: esp32p4
-            preview: ""
-          - idf_ver: release-v6.1
-            target: esp32
-            preview: ""
-          - idf_ver: release-v6.1
-            target: esp32s2
             preview: ""
           - idf_ver: release-v6.1
             target: esp32s3
             preview: ""
-          - idf_ver: release-v6.1
-            target: esp32p4
-            preview: ""
-          - idf_ver: release-v6.1
-            target: esp32s31
-            preview: "--preview"
             
     runs-on: ubuntu-latest
     container: espressif/idf:${{ matrix.idf_ver }}
@@ -63,7 +42,7 @@ jobs:
         with:
           name: esp-drone-binaries-${{ matrix.target }}-${{ matrix.idf_ver }}
           path: |
-            build-${{ matrix.target }}/ESPDrone.bin
+            build-${{ matrix.target }}/*.bin
             build-${{ matrix.target }}/bootloader/bootloader.bin
             build-${{ matrix.target }}/partition_table/partition-table.bin
-          if-no-files-found: ignore
+          if-no-files-found: error
