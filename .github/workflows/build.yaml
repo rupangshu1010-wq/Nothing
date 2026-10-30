@@ -1,0 +1,24 @@
+name: Build Aura Firmware
+
+on:
+  push:
+    branches: [ "master", "main" ]
+  pull_request:
+    branches: [ "master", "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: espressif/idf:release-v5.5
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          submodules: 'recursive'
+
+      - name: Build for ESP32-S3
+        shell: bash
+        run: |
+          . ${IDF_PATH}/export.sh
+          idf.py -B build-esp32s3 -D IDF_TARGET=esp32s3 build
