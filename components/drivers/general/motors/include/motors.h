@@ -34,9 +34,17 @@
 
 /******** Defines ********/
 
+// CF2 PWM ripple is filtered better at 328kHz. At 168kHz the NCP702 regulator is affected.
+
 #define MOTORS_PWM_BITS           LEDC_TIMER_8_BIT
 #define MOTORS_PWM_PERIOD         ((1<<MOTORS_PWM_BITS) - 1)
 #define MOTORS_TIM_BEEP_CLK_FREQ  4000000
+
+// Compensate thrust depending on battery voltage so it will produce about the same
+// amount of thrust independent of the battery voltage. Based on thrust measurement.
+
+//#define ENABLE_THRUST_BAT_COMPENSATED
+
 
 #define NBR_OF_MOTORS 4
 // Motors IDs define
@@ -131,18 +139,66 @@ typedef enum {
 
 typedef struct {
     motorsDrvType drvType;
+
 } MotorPerifDef;
 
+/**
+ * Motor mapping configurations
+ */
+//extern const MotorPerifDef* motorMapNoMotors[NBR_OF_MOTORS];
 extern const MotorPerifDef *motorMapDefaultBrushed[NBR_OF_MOTORS];
-extern const uint16_t testsound[NBR_OF_MOTORS];
+// extern const MotorPerifDef* motorMapDefaltConBrushless[NBR_OF_MOTORS];
+// extern const MotorPerifDef* motorMapBigQuadDeck[NBR_OF_MOTORS];
+// extern const MotorPerifDef* motorMapBoltBrushless[NBR_OF_MOTORS];
 
+/**
+ * Test sound tones
+ */
+extern const uint16_t testsound[NBR_OF_MOTORS];
 /*** Public interface ***/
-bool pwm_timer_init(void);
+
+bool pwm_timmer_init();
+/**
+ * Initialisation. Will set all motors ratio to 0%
+ */
 void motorsInit(const MotorPerifDef **motorMapSelect);
+
+/**
+ * DeInitialisation. Reset to default
+ */
 void motorsDeInit(const MotorPerifDef **motorMapSelect);
+
+/**
+ * Test of the motor modules. The test will spin each motor very short in
+ * the sequence M1 to M4.
+ */
 bool motorsTest(void);
+
+/**
+ * Set the PWM ratio of the motor 'id'
+ */
 void motorsSetRatio(uint32_t id, uint16_t ratio);
+
+/**
+ * Get the PWM ratio of the motor 'id'. Return -1 if wrong ID.
+ */
 int motorsGetRatio(uint32_t id);
+
+/**
+ * FreeRTOS Task to test the Motors driver
+ */
+void motorsTestTask(void *params);
+
+/* Set PWM frequency for motor controller
+ * This function will set all motors into a "beep"-mode,
+ * each of the motor will turned on with a given ratio and frequency.
+ * The higher the ratio the higher the given power to the motors.
+ * ATTENTION: To much ratio can push your crazyflie into the air and hurt you!
+ * Example:
+ *     motorsBeep(true, 1000, (uint16_t)(72000000L / frequency)/ 20);
+ *     motorsBeep(false, 0, 0); *
+ * */
 void motorsBeep(int id, bool enable, uint16_t frequency, uint16_t ratio);
 
 #endif /* __MOTORS_H__ */
+
