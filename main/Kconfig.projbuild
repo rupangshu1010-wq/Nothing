@@ -7,13 +7,13 @@ menu "ESPDrone Config"
         default TARGET_ESPLANE_V1 if IDF_TARGET_ESP32
 
         config TARGET_ESPLANE_V1
-            bool "esplane with esp32 onboard(old version )"
+            bool "esplane with esp32 onboard(old version )"[cite: 8]
 
         config TARGET_ESPLANE_V2_S2
-            bool "esplane with esp32-s2 onboard"
+            bool "esplane with esp32-s2 onboard"[cite: 8]
 
         config TARGET_ESP32_S2_DRONE_V1_2
-            bool "esp-drone with ESP32-S2/ESP32-S3 onboard"
+            bool "esp-drone with ESP32-S2/ESP32-S3 onboard"[cite: 8]
 
     endchoice
 
@@ -23,11 +23,11 @@ menu "ESPDrone Config"
         config EXT_FLOW_TESTBOARD
             bool "use testboard 200616"
             help
-                This board use wrong pin definition,only for test.
+                This board use wrong pin definition,only for test.[cite: 8]
         config EXT_AUTO_DETECT
             bool "auto detect"
             help
-                enable this to use extend board.
+                enable this to use extend board.[cite: 8]
     endchoice
 
     menu "app set"
@@ -35,19 +35,19 @@ menu "ESPDrone Config"
             bool "Enable legacy ESPlane1.0 APP"
             default n
             help
-                This enables the udp_server_rx2_task of wifi.
+                This enables the udp_server_rx2_task of wifi.[cite: 8]
         config ENABLE_POSITION_HOLD_MODE
             bool "Enable position hold mode"
             default y
             help
-                This enables position hold mode when pmw3901 sensors available.
+                This enables position hold mode when pmw3901 sensors available.[cite: 8]
         config ENABLE_COMMAND_MODE_SET
             bool "Enable \'setCommandermode\' to transform command"
             depends on ENABLE_POSITION_HOLD_MODE
             default y if ENABLE_POSITION_HOLD_MODE
             default n if !ENABLE_POSITION_HOLD_MODE
             help
-                This enables assit mode when use old version app.
+                This enables assit mode when use old version app.[cite: 8]
     endmenu
 
     menu "wireless config"
@@ -55,24 +55,24 @@ menu "ESPDrone Config"
             string "Wi-Fi Base SSID"
             default "LiteWing"
             help
-                Wi-Fi Base SSID, 1-16 characters. the final SSID will be BASE_SSID-MAC
+                Wi-Fi Base SSID, 1-16 characters. the final SSID will be BASE_SSID-MAC[cite: 8]
         config WIFI_PASSWORD
             string "Wi-Fi Password"
             default "12345678"
             help
-                Wi-Fi Password, 8-64 characters
+                Wi-Fi Password, 8-64 characters[cite: 8]
         config WIFI_CHANNEL
             int "Wi-Fi/ESP-Now Channel"
             range 1 13
             default 6
             help
-                Wi-Fi/ESP-Now Channel, 1-13
+                Wi-Fi/ESP-Now Channel, 1-13[cite: 8]
         config WIFI_MAX_STA_CONN
             int "Wi-Fi Max Station Connection"
             range 1 6
             default 3
             help
-                Wi-Fi Max Station Connection, 1-6
+                Wi-Fi Max Station Connection, 1-6[cite: 8]
     endmenu
 
     menu "calibration angle"
@@ -81,14 +81,14 @@ menu "ESPDrone Config"
             range -200 200
             default 0
             help
-                if PITCH error angle is 0.90,set this 90
+                if PITCH error angle is 0.90,set this 90[cite: 8]
 
         config ROLL_CALIB
             int "ROLL_CALIB deg*100"
             range -200 200
             default 0
             help
-                if ROLL error angle is 0.90,set this 90
+                if ROLL error angle is 0.90,set this 90[cite: 8]
     endmenu
 
     menu "system"
@@ -98,7 +98,7 @@ menu "ESPDrone Config"
             range 512 1024
             default 1024 if IDF_TARGET_ESP32
             default 512 if IDF_TARGET_ESP32S2
-            default 1024 if IDF_TARGET_ESP32S3
+            default 1024 if IDF_TARGET_ESP32S3[cite: 8]
 
     endmenu
 
@@ -106,7 +106,7 @@ menu "ESPDrone Config"
 
         config BUZZER_ON
             bool "enable buzzer to play sound"
-            default y
+            default y[cite: 8]
 
         config BUZ1_PIN_POS
             int "BUZ1_PIN_POS GPIO number"
@@ -117,7 +117,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 39 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) BUZ1_PIN_POS
+                GPIO number (IOxx) BUZ1_PIN_POS[cite: 8]
 
         config BUZ2_PIN_NEG
             int "BUZ2_PIN_NEG GPIO number"
@@ -128,7 +128,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 38 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) BUZ2_PIN_NEG
+                GPIO number (IOxx) BUZ2_PIN_NEG[cite: 8]
 
     endmenu
 
@@ -142,7 +142,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 11 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) I2C0_PIN_SDA
+                GPIO number (IOxx) I2C0_PIN_SDA[cite: 8]
 
         config I2C0_PIN_SCL
             int "I2C0_PIN_SCL GPIO number"
@@ -153,7 +153,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 10 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) I2C0_PIN_SCL
+                GPIO number (IOxx) I2C0_PIN_SCL[cite: 8]
 
         config I2C1_PIN_SDA
             int "I2C1_PIN_SDA GPIO number"
@@ -164,7 +164,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 40 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) I2C1_PIN_SDA
+                GPIO number (IOxx) I2C1_PIN_SDA[cite: 8]
 
         config I2C1_PIN_SCL
             int "I2C1_PIN_SCL GPIO number"
@@ -175,7 +175,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 41 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) I2C1_PIN_SCL
+                GPIO number (IOxx) I2C1_PIN_SCL[cite: 8]
 
         config SPI_PIN_MISO
             int "SPI_PIN_MISO GPIO number"
@@ -186,7 +186,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 37 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) SPI_PIN_MISO
+                GPIO number (IOxx) SPI_PIN_MISO[cite: 8]
 
         config SPI_PIN_MOSI
             int "SPI_PIN_MOSI GPIO number"
@@ -197,7 +197,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 35 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) SPI_PIN_MOSI
+                GPIO number (IOxx) SPI_PIN_MOSI[cite: 8]
 
         config SPI_PIN_CLK
             int "SPI_PIN_CLK GPIO number"
@@ -208,7 +208,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 36 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) SPI_PIN_CLK
+                GPIO number (IOxx) SPI_PIN_CLK[cite: 8]
 
         config SPI_PIN_CS0
             int "SPI_PIN_CS0 GPIO number"
@@ -219,7 +219,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 42 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) SPI_PIN_CS0
+                GPIO number (IOxx) SPI_PIN_CS0[cite: 8]
 
         config MPU_PIN_INT
             int "MPU_PIN_INT GPIO number"
@@ -230,7 +230,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 12 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) MPU_PIN_INT
+                GPIO number (IOxx) MPU_PIN_INT[cite: 8]
 
         config ADC1_PIN
             int "ADC1_PIN GPIO number"
@@ -241,7 +241,7 @@ menu "ESPDrone Config"
             range 1 10 if TARGET_ESP32_S2_DRONE_V1_2
             default 2 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) ADC1_PIN
+                GPIO number (IOxx) ADC1_PIN[cite: 8]
 
         config EXT01_PIN
             int "EXT01_PIN GPIO number"
@@ -252,7 +252,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 1 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) EXT01_PIN
+                GPIO number (IOxx) EXT01_PIN[cite: 8]
     endmenu
 
     menu "led config"
@@ -265,7 +265,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 9 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) LED_PIN_BLUE
+                GPIO number (IOxx) LED_PIN_BLUE[cite: 8]
 
         config LED_PIN_GREEN
             int "LED_PIN_GREEN GPIO number"
@@ -276,7 +276,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 7 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) LED_PIN_GREEN
+                GPIO number (IOxx) LED_PIN_GREEN[cite: 8]
 
         config LED_PIN_RED
             int "LED_PIN_RED GPIO number"
@@ -287,7 +287,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 8 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) LED_PIN_RED
+                GPIO number (IOxx) LED_PIN_RED[cite: 8]
 
     endmenu
 
@@ -313,7 +313,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 5 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) MOTOR01_PIN
+                GPIO number (IOxx) MOTOR01_PIN[cite: 8]
 
         config MOTOR02_PIN
             int "MOTOR02_PIN GPIO number"
@@ -324,7 +324,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 6 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) MOTOR02_PIN
+                GPIO number (IOxx) MOTOR02_PIN[cite: 8]
 
         config MOTOR03_PIN
             int "MOTOR03_PIN GPIO number"
@@ -335,7 +335,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 3 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) MOTOR03_PIN
+                GPIO number (IOxx) MOTOR03_PIN[cite: 8]
 
         config MOTOR04_PIN
             int "MOTOR04_PIN GPIO number"
@@ -346,8 +346,15 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 4 if TARGET_ESP32_S2_DRONE_V1_2
             help
-                GPIO number (IOxx) MOTOR04_PIN
+                GPIO number (IOxx) MOTOR04_PIN[cite: 8]
     endmenu
 
+    menu "transport config"
+        config TRANSPORT_NONE
+            bool "No transport fallback"
+            default y
+            help
+                Enable fallback transport when no other transport link is active.
+    endmenu
 
 endmenu
