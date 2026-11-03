@@ -7,7 +7,7 @@ menu "ESPDrone Config"
         default TARGET_ESPLANE_V1 if IDF_TARGET_ESP32
 
         config TARGET_ESPLANE_V1
-            bool "esplane with esp32 onboard (old version)"
+            bool "esplane with esp32 onboard(old version )"
 
         config TARGET_ESPLANE_V2_S2
             bool "esplane with esp32-s2 onboard"
@@ -17,17 +17,32 @@ menu "ESPDrone Config"
 
     endchoice
 
+    choice TRANSPORT
+        prompt "CRTP transport"
+        default TRANSPORT_NATIVE_WIFI if SOC_WIFI_SUPPORTED
+        default TRANSPORT_NONE
+
+        config TRANSPORT_NATIVE_WIFI
+            bool "native Wi-Fi"
+            depends on SOC_WIFI_SUPPORTED
+
+        config TRANSPORT_NONE
+            bool "no radio (diagnostic/safe mode)"
+            help
+                Start the firmware with a blocking no-op CRTP link.
+    endchoice
+
     choice
         prompt "extend board version"
         default EXT_AUTO_DETECT
         config EXT_FLOW_TESTBOARD
             bool "use testboard 200616"
             help
-                This board uses wrong pin definition, only for test.
+                This board use wrong pin definition,only for test.
         config EXT_AUTO_DETECT
             bool "auto detect"
             help
-                Enable this to use extend board.
+                enable this to use extend board.
     endchoice
 
     menu "app set"
@@ -42,20 +57,27 @@ menu "ESPDrone Config"
             help
                 This enables position hold mode when pmw3901 sensors available.
         config ENABLE_COMMAND_MODE_SET
-            bool "Enable 'setCommandermode' to transform command"
+            bool "Enable \'setCommandermode\' to transform command"
             depends on ENABLE_POSITION_HOLD_MODE
             default y if ENABLE_POSITION_HOLD_MODE
             default n if !ENABLE_POSITION_HOLD_MODE
             help
-                This enables assist mode when use old version app.
+                This enables assit mode when use old version app.
     endmenu
 
     menu "wireless config"
+        config ESPNOW_CONTROL
+            bool "Enhanced ESP-NOW control channel"
+            depends on TRANSPORT_NATIVE_WIFI
+            default y
+            help
+                Enable the controller protocol implemented with Espressif's enhanced esp-now component.
+
         config WIFI_BASE_SSID
             string "Wi-Fi Base SSID"
             default "LiteWing"
             help
-                Wi-Fi Base SSID, 1-16 characters. The final SSID will be BASE_SSID-MAC
+                Wi-Fi Base SSID, 1-16 characters. the final SSID will be BASE_SSID-MAC
         config WIFI_PASSWORD
             string "Wi-Fi Password"
             default "12345678"
@@ -81,14 +103,14 @@ menu "ESPDrone Config"
             range -200 200
             default 0
             help
-                If PITCH error angle is 0.90, set this 90
+                if PITCH error angle is 0.90,set this 90
 
         config ROLL_CALIB
             int "ROLL_CALIB deg*100"
             range -200 200
             default 0
             help
-                If ROLL error angle is 0.90, set this 90
+                if ROLL error angle is 0.90,set this 90
     endmenu
 
     menu "system"
@@ -263,7 +285,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESPLANE_V2_S2
             default 7 if TARGET_ESPLANE_V2_S2
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
-            default 9 if TARGET_ESP32_S2_DRONE_V1_2
+            default 7 if TARGET_ESP32_S2_DRONE_V1_2
             help
                 GPIO number (IOxx) LED_PIN_BLUE
 
@@ -274,7 +296,7 @@ menu "ESPDrone Config"
             range 0 43 if TARGET_ESPLANE_V2_S2
             default 9 if TARGET_ESPLANE_V2_S2
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
-            default 7 if TARGET_ESP32_S2_DRONE_V1_2
+            default 9 if TARGET_ESP32_S2_DRONE_V1_2
             help
                 GPIO number (IOxx) LED_PIN_GREEN
 
@@ -341,20 +363,12 @@ menu "ESPDrone Config"
             int "MOTOR04_PIN GPIO number"
             range 0 34 if TARGET_ESPLANE_V1
             default 25 if TARGET_ESPLANE_V1
-            range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
-            default 6 if TARGET_ESP32_S2_DRONE_V1_2
+            range 0 43 if TARGET_ESPLANE_V2_S2
+            default 6 if TARGET_ESPLANE_V2_S2
             range 0 43 if TARGET_ESP32_S2_DRONE_V1_2
             default 4 if TARGET_ESP32_S2_DRONE_V1_2
             help
                 GPIO number (IOxx) MOTOR04_PIN
-    endmenu
-
-    menu "transport config"
-        config TRANSPORT_NONE
-            bool "No transport fallback"
-            default y
-            help
-                Enable fallback transport when no other transport link is active.
     endmenu
 
 endmenu
